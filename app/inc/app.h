@@ -2,12 +2,13 @@
 #define APP
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 #include <stdint.h>
 
-void app();
+    void app();
 
 #ifdef __cplusplus
 }
