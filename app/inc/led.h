@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-    typedef enum LED_STATE
+    typedef enum
     {
         LED_OFF = 0,
         LED_ON

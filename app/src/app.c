@@ -1,21 +1,30 @@
 #include "main.h"
 #include "app.h"
 #include "led.h"
+#include "button.h"
+#include "stdbool.h"
 #include <stdint.h>
 
-void app()
+volatile bool buttonUpdate = false;
+bool buttonAction = false;
+volatile LED_STATE_t ledState = LED_OFF;
+BUTTON_t button;
+
+void APP_main()
 {
+    // inits
+    BUTTON_init(&button);
+
     while (1)
     {
-        static uint32_t refMillis = 0;
-        static LED_STATE_t ledState = LED_OFF;
-
-        uint32_t currentMillis = millis();
-
-        if (currentMillis - refMillis > 1000)
+        if (buttonUpdate)
         {
-            refMillis = currentMillis;
-            
+            buttonAction = BUTTON_checkPressed(&button, millis());
+            buttonUpdate = false;
+        }
+
+        if (buttonAction)
+        {
             switch (ledState)
             {
             case LED_OFF:
@@ -26,8 +35,14 @@ void app()
                 ledState = LED_OFF;
                 break;
             }
-            
+
             LED_setState(ledState);
+            buttonAction = false;
         }
     }
+}
+
+void APP_buttonPressed()
+{
+    buttonUpdate = true;
 }
