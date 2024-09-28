@@ -12,7 +12,7 @@ extern "C"
     typedef enum
     {
         BUTTON_pressed,
-        BUTTON_released,
+        BUTTON_notPressed,
     } BUTTON_state_t;
 
 #ifdef __cplusplus

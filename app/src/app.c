@@ -9,7 +9,7 @@ uint32_t blinkTimeMillis = 150; // blink on time
 
 LED_STATE_t ledState = LED_OFF;
 uint32_t blinkStateMillis = 0;
-BUTTON_state_t lastButtonState = BUTTON_released;
+BUTTON_state_t lastButtonState = BUTTON_notPressed;
 
 void APP_main()
 {
@@ -17,7 +17,7 @@ void APP_main()
     {
         bool buttonState = getBtnState();
 
-        bool buttonReleased = (buttonState == BUTTON_released) && (lastButtonState != buttonState); // button changed to released
+        bool buttonReleased = (buttonState == BUTTON_notPressed) && (lastButtonState != buttonState); // button changed to released
 
         if (buttonReleased)
         {
