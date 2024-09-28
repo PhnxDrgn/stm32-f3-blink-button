@@ -9,16 +9,12 @@ extern "C"
 {
 #endif
 
-    typedef struct
+    typedef enum
     {
-        uint32_t debounceMillis;
+        BUTTON_pressed,
+        BUTTON_released,
+    } BUTTON_state_t;
 
-        // button meta data: do not change
-        uint32_t lastValidButtonPress;
-    } BUTTON_t;
-
-    void BUTTON_init(BUTTON_t *button);
-    bool BUTTON_checkPressed(BUTTON_t *button, uint32_t currentMillis);
 #ifdef __cplusplus
 }
 #endif

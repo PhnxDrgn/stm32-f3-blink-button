@@ -5,42 +5,31 @@
 #include "stdbool.h"
 #include <stdint.h>
 
-uint32_t blinkTimeMillis = 500; // blink on time
+uint32_t blinkTimeMillis = 150; // blink on time
 
-volatile bool buttonUpdate = false;
-bool buttonAction = false;
 LED_STATE_t ledState = LED_OFF;
 uint32_t blinkStateMillis = 0;
-BUTTON_t button;
+BUTTON_state_t lastButtonState = BUTTON_released;
 
 void APP_main()
 {
-    // inits
-    BUTTON_init(&button);
-
     while (1)
     {
-        if (buttonUpdate)
-        {
-            buttonAction = BUTTON_checkPressed(&button, millis());
-            buttonUpdate = false;
-        }
+        bool buttonState = getBtnState();
 
-        if (buttonAction)
+        bool buttonReleased = (buttonState == BUTTON_released) && (lastButtonState != buttonState); // button changed to released
+
+        if (buttonReleased)
         {
-            // only blink if blink is not already in progress
-            if (ledState == LED_OFF)
+            // reset start time for blink
+            blinkStateMillis = millis();
+
+            if (ledState != LED_ON)
             {
-                // update start time for blink
-                blinkStateMillis = millis();
-
-                // turn on LED
+                // turn on led
                 ledState = LED_ON;
                 LED_setState(ledState);
             }
-
-            // reset action trigger
-            buttonAction = false;
         }
 
         // check blink time to reset
@@ -50,10 +39,7 @@ void APP_main()
             ledState = LED_OFF;
             LED_setState(ledState);
         }
-    }
-}
 
-void APP_buttonPressed()
-{
-    buttonUpdate = true;
+        lastButtonState = buttonState;
+    }
 }
