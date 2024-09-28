@@ -3,7 +3,7 @@
 void BUTTON_init(BUTTON_t *button)
 {
     // default settings
-    button->debounceMillis = 150;
+    button->debounceMillis = 100;
 
     // init meta data
     button->lastValidButtonPress = 0;
