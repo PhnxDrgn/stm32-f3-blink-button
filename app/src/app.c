@@ -10,12 +10,15 @@ uint32_t blinkTimeMillis = 150; // blink on time
 
 LED_STATE_t ledState = LED_OFF;
 uint32_t blinkStateMillis = 0;
+bool doubleClicked = false;
 
 BUTTON_t button;
 
 void APP_main()
 {
-    BUTTON_init(&button, APP_buttonClicked, NULL);
+    BUTTON_init(&button);
+    button.buttonPressedCallback = APP_buttonClicked;
+    button.doubleClickCallback = APP_doubleClick;
 
     while (1)
     {
@@ -23,7 +26,9 @@ void APP_main()
         BUTTON_update(&button, getBtnState());
 
         // check blink time to reset
-        if ((ledState == LED_ON) && ((millis() - blinkStateMillis) > blinkTimeMillis))
+        if (!doubleClicked &&
+            (ledState == LED_ON) &&
+            ((millis() - blinkStateMillis) > blinkTimeMillis))
         {
             // turn on off
             ledState = LED_OFF;
@@ -43,4 +48,17 @@ void APP_buttonClicked()
         ledState = LED_ON;
         LED_setState(ledState);
     }
+
+    doubleClicked = false;
+}
+
+void APP_doubleClick()
+{
+    if (ledState != LED_ON)
+    {
+        // turn on led
+        ledState = LED_ON;
+        LED_setState(ledState);
+    }
+    doubleClicked = true;
 }

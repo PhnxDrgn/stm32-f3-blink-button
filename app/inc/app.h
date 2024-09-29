@@ -11,6 +11,7 @@ extern "C"
 
     void APP_main();
     void APP_buttonClicked();
+    void APP_doubleClick();
 
 #ifdef __cplusplus
 }
