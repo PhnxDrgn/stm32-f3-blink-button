@@ -10,6 +10,7 @@ extern "C"
 #include "stdbool.h"
 
     void APP_main();
+    void APP_buttonClicked();
 
 #ifdef __cplusplus
 }

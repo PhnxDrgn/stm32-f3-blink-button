@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.12)
 set(CMAKE_TOOLCHAIN_FILE "../arm-none-eabi-gcc.cmake")
 
 # set project name
-project(blink)
+project(blink-button)
 
 # Set microcontroller information
 set(MCU_FAMILY STM32F3xx)
