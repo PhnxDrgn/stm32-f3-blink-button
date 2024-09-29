@@ -7,6 +7,8 @@ Simple Push Button Blink on NUCLEO-F303K8
 
 This project was created using my [stm32-f3-blink template](https://github.com/PhnxDrgn/stm32-f3-blink).
 
+[Video for Project Demo](https://drive.google.com/file/d/1oju7nXf6syGwMBcTnopyiXCSY00kq0Q5/view?usp=drive_link)
+
 ## How it Works
 ### Hardware
 - The LED used was the built-in LED in the NUCLEO-F303K8 board.
